@@ -10,11 +10,13 @@
     <?php
 
         $conn = new mysqli("localhost", "root", "", "companyannualleave");
-        $sql = "SELECT * FROM  employees";
+        $sql = "SELECT * FROM  employees ORDER BY employeeName,employeeSurname ASC";
         $result = $conn->query($sql);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
     
         echo "<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>";
+        echo "<a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>";
+        echo "<a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>";
         
         echo "<br>";
         foreach($rows as $row){
@@ -26,7 +28,7 @@
             echo "Contract Type: " . $row['employeeContractType'] . "<br>";
             echo "Annual Leave Days left: " . $row['employeeFreeDays'] . " days <br>";
             echo "Employee using Annual Leave at this Time? ";
-                if( $row['employeeAnnualStatus']== true)
+                if($row['employeeAnnualStatus']== true)
                     echo "YES.";
                 else
                     echo "NO.";

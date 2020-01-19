@@ -61,7 +61,11 @@ if(isset($_POST['addNewEmployee']))
 <body>
 	<form action="adminPanelAdd.php" method="post">
     
-
+        <?php
+        echo "<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>";
+        echo "<a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>";
+        echo "<a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>";
+        ?>
 
 	    Employee Name: <input type="text" name="ename"><br>
         Employee Surname: <input type="text" name="esurname"><br>

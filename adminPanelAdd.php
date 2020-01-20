@@ -12,6 +12,8 @@ if(isset($_POST['addNewEmployee']))
     $employeeFreeDays=0;
     $employeeAnnualStatus=false;
     $employeeAnnualRequest=false;
+    $employeeAnnualDate=NULL;
+    $employeeAnnualSelectedDays=0;
     
 
     $yearStartJob = date('Y', strtotime($employeeStartJobDate));
@@ -46,7 +48,7 @@ if(isset($_POST['addNewEmployee']))
     else
     { 
         $conn=new mysqli("localhost","root","","companyannualleave");
-        $sql= "INSERT INTO employees(employeeId,employeeName,employeeSurname,employeeBirthDate,employeeStartJobDate,employeePosition,employeeContractType,employeeUsername,employeePassword,employeeFreeDays,employeeAnnualStatus,employeeAnnualRequest) VALUES ('','$employeeName','$employeeSurname','$employeeBirthDate','$employeeStartJobDate','$employeePosition','$employeeContractType','$employeeUsername','$employeePassword','$employeeFreeDays','$employeeAnnualStatus','$employeeAnnualRequest')";
+        $sql= "INSERT INTO employees(employeeId,employeeName,employeeSurname,employeeBirthDate,employeeStartJobDate,employeePosition,employeeContractType,employeeUsername,employeePassword,employeeFreeDays,employeeAnnualStatus,employeeAnnualRequest,employeeAnnualDate,employeeAnnualSelectedDays) VALUES ('','$employeeName','$employeeSurname','$employeeBirthDate','$employeeStartJobDate','$employeePosition','$employeeContractType','$employeeUsername','$employeePassword','$employeeFreeDays','$employeeAnnualStatus','$employeeAnnualRequest','$employeeAnnualDate','$employeeAnnualSelectedDays')";
         $result= $conn->query($sql);
         echo "<h1>You have successfully added a new Employee!</h1>";
     }
@@ -62,6 +64,7 @@ if(isset($_POST['addNewEmployee']))
 	<form action="adminPanelAdd.php" method="post">
     
         <?php
+        echo "<a href='adminPanelControl.php'>CONTROL PANEL</a><br>";
         echo "<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>";
         echo "<a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>";
         echo "<a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>";

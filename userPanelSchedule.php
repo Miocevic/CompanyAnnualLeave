@@ -32,7 +32,7 @@
                 //echo "You have entered wrong username and/or password. Please, try again.";
                 header("location: userPanelLogin.php");
             }
-            
+
             if(isset($_POST['userSelectedAnnual']))
             {   
 
@@ -58,7 +58,7 @@
 <body>
 
     <form action=userPanelSchedule.php action=post>
-        Select when You want to start Annual Leave: <br><input type="date" name="edateSchedule"><br>
+        Select when You want to start Annual Leave: <br><input type="date" min="2020-01-01" max="2020-12-31" name="edateSchedule"><br>
         How many days do You want to take off? Now you have 
         <?php $conn=new mysqli("localhost","root","","companyannualleave");
         $sql= "SELECT * FROM employees WHERE employeeUsername='$userUsername' AND employeePassword='$userPassword'";

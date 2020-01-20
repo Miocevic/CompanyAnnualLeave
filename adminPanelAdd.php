@@ -72,8 +72,8 @@ if(isset($_POST['addNewEmployee']))
 
 	    Employee Name: <input type="text" name="ename"><br>
         Employee Surname: <input type="text" name="esurname"><br>
-		Employee Date of Birth: <input type="date" name="ebirthdate"><br>
-        Employee Job Start Date: <input type="date" name="ejobdate"><br>
+		Employee Date of Birth: <input type="date" min="1960-01-01" max="2000-01-01" name="ebirthdate"><br>
+        Employee Job Start Date: <input type="date" min="2000-01-01" max="2020-02-01" name="ejobdate"><br>
        
         Employee Position: 
         <?php

@@ -31,21 +31,7 @@
             {
                 //echo "You have entered wrong username and/or password. Please, try again.";
                 header("location: userPanelLogin.php");
-            }
-
-            if(isset($_POST['userSelectedAnnual']))
-            {   
-
-                $employeeAnnualDate=$_POST['edateSchedule'];
-                $employeeAnnualSelectedDays=$_POST['daysChoose'];
-
-                echo $employeeAnnualDate;
-                echo "<br>";
-                echo $employeeAnnualSelectedDays;
-
-            }
-
-            
+            }        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,22 +43,33 @@
 </head>
 <body>
 
-    <form action=userPanelSchedule.php action=post>
-        Select when You want to start Annual Leave: <br><input type="date" min="2020-01-01" max="2020-12-31" name="edateSchedule"><br>
+    <form action=userPanelSchedule.php method=post>
+        Select when You want to start Annual Leave: 
+        <br><input type="date" min="<?php echo date("Y") ?>-01-01" max="<?php echo date("Y") ?>-12-31" name="edateSchedule"><br>
+
         How many days do You want to take off? Now you have 
-        <?php $conn=new mysqli("localhost","root","","companyannualleave");
+        <?php 
+        
+        $conn=new mysqli("localhost","root","","companyannualleave");
         $sql= "SELECT * FROM employees WHERE employeeUsername='$userUsername' AND employeePassword='$userPassword'";
         $result= $conn->query($sql);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
-        foreach($rows as $row)
-            if(($row['employeeUsername']==$userUsername) && ($row['employeePassword']==$userPassword))
+        foreach($rows as $firstrow)
+            $row=$firstrow;
+
+        if(($row['employeeUsername']==$userUsername) && ($row['employeePassword']==$userPassword))
                 {
                     echo $row['employeeFreeDays']." days left.<br>";
-                    echo "<select name='daysChoose'>";
-                    for($i=1;$i<=$row['employeeFreeDays'];$i++){
+                    if($row['employeeFreeDays']==0)
+                        echo "You have used all of Your free days this year. Stay with Us one more year for more. :)";
+                    else 
+                    {
+                        echo "<select name='daysChoose'>";
+                        for($i=1;$i<=$row['employeeFreeDays'];$i++){
                         echo "<option>".$i."</option>";
-                    }
+                        }
                     echo "</select>";
+                    }
                 }
         ?>
     <br><br>
@@ -81,3 +78,31 @@
     </form>
 </body>
 </html>
+
+<?php
+    if(isset($_POST['userSelectedAnnual']))
+    {   
+
+        $employeeAnnualDate=$_POST['edateSchedule'];
+        $employeeAnnualSelectedDays=$_POST['daysChoose'];
+
+        echo $employeeAnnualDate;
+        
+        $freeWorkingDays=$employeeAnnualSelectedDays;
+        $startingDate=date_create($employeeAnnualDate);
+        $endingDate=$startingDate;
+
+        for($i=0;$i<$freeWorkingDays-1;)
+        {
+            $dayNumber=(int)(date_format($endingDate,"N")); 
+            if($dayNumber==5 || $dayNumber==6)
+                date_add($endingDate,date_interval_create_from_date_string("1 day"));
+            else
+            {        
+                date_add($endingDate,date_interval_create_from_date_string("1 day"));
+                $i++;
+            }
+        }
+        echo date_format($endingDate,"Y-m-d");
+    }
+?>

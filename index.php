@@ -21,3 +21,17 @@
 
 </body>
 </html>
+
+<?php
+        $currentYear=date("Y");
+        $currentMonth=date("n");    
+    
+        if($currentMonth>6)
+        {
+            $conn = new mysqli("localhost", "root", "", "companyannualleave");
+            $sql = "UPDATE employees SET employeeFreeDays=20 WHERE employeeFreeDays > 20";
+            $result = $conn->query($sql);
+            //echo "Unused free days from last year was lost!<br>";
+        }
+
+?>

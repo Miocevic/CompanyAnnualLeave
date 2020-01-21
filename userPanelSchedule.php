@@ -21,6 +21,10 @@ session_start();
         $_SESSION['employeeId']=$employeeId;
         echo $_SESSION['employeeId']."<br>";
             
+    
+
+
+
 
 
         $conn=new mysqli("localhost","root","","companyannualleave");
@@ -130,6 +134,7 @@ session_start();
 		$sql = "UPDATE employees SET employeeAnnualRequest = 'true', employeeAnnualDateStart = '$employeeAnnualDate', employeeAnnualDateEnd = '$endingDate', employeeAnnualSelectedDays = '$employeeAnnualSelectedDays' WHERE employeeId = '$employeeId'";
 		$result = $conn->query($sql);
         echo "Uspesno UPDEJT!";
+        header("location:userPanelLogin.php");
 
     }
 ?>

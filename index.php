@@ -1,17 +1,3 @@
-<?php
-    $workingDays=4;
-    $startingDate=date_create("2020-02-05");
-    $endingDate=$startingDate;
-    //date_add($startingDate,date_interval_create_from_date_string("1 day"));
-    
-    echo date_format($startingDate,"Y-m-d")."<br>"; 
-
-
-    echo date_format($endingDate,"Y-m-d")."<br>"; 
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

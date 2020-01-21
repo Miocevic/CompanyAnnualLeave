@@ -1,14 +1,28 @@
 <?php
-        
+session_start();        
 
         $userUsername=$_POST['uusername'];
         $userPassword=$_POST['upassword'];
-
+        $_SESSION['employeeUsername']= $_POST['uusername'];
+        $_SESSION['employeePassword']= $_POST['upassword'];
 
         if(empty($userUsername) || empty($userPassword))
             echo "<h1>You have to insert both username and password!</h1>";
 
+        $conn=new mysqli("localhost","root","","companyannualleave");
+        $sql= "SELECT * FROM employees WHERE employeeUsername='$userUsername' AND employeePassword='$userPassword'";
+        $result= $conn->query($sql);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        foreach($rows as $firstrow)
+            $tryId = $firstrow['employeeId'];
+
+        $employeeId=$tryId;
+        echo $employeeId." ";
+        $_SESSION['employeeId']=$employeeId;
+        echo $_SESSION['employeeId']."<br>";
             
+
+
         $conn=new mysqli("localhost","root","","companyannualleave");
         $sql= "SELECT * FROM employees WHERE employeeUsername='$userUsername' AND employeePassword='$userPassword'";
         $result= $conn->query($sql);
@@ -29,7 +43,6 @@
             }
             else
             {
-                //echo "You have entered wrong username and/or password. Please, try again.";
                 header("location: userPanelLogin.php");
             }        
 ?>
@@ -102,7 +115,21 @@
                 date_add($endingDate,date_interval_create_from_date_string("1 day"));
                 $i++;
             }
-        }
+        }   
         echo date_format($endingDate,"Y-m-d");
+
+        $endingDate = $endingDate->format('Y-m-d');
+
+        $_SESSION['employeeAnnualDateStart']=$employeeAnnualDate;
+        $_SESSION['employeeAnnualSelectedDays']=$employeeAnnualSelectedDays;
+        $_SESSION['employeeAnnualDateEnd']=$endingDate;
+        //$employeeId=$_SESSION['employeeId'];
+        echo "OVO JE ID ".$employeeId."<br>";
+
+        $conn = new mysqli("localhost", "root", "", "companyannualleave");
+		$sql = "UPDATE employees SET employeeAnnualRequest = 'true', employeeAnnualDateStart = '$employeeAnnualDate', employeeAnnualDateEnd = '$endingDate', employeeAnnualSelectedDays = '$employeeAnnualSelectedDays' WHERE employeeId = '$employeeId'";
+		$result = $conn->query($sql);
+        echo "Uspesno UPDEJT!";
+
     }
 ?>

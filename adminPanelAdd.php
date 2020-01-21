@@ -12,7 +12,8 @@ if(isset($_POST['addNewEmployee']))
     $employeeFreeDays=0;
     $employeeAnnualStatus=false;
     $employeeAnnualRequest=false;
-    $employeeAnnualDate=NULL;
+    $employeeAnnualDateStart=NULL;
+    $employeeAnnualDateEnd=NULL;
     $employeeAnnualSelectedDays=0;
     
 
@@ -48,7 +49,7 @@ if(isset($_POST['addNewEmployee']))
     else
     { 
         $conn=new mysqli("localhost","root","","companyannualleave");
-        $sql= "INSERT INTO employees(employeeId,employeeName,employeeSurname,employeeBirthDate,employeeStartJobDate,employeePosition,employeeContractType,employeeUsername,employeePassword,employeeFreeDays,employeeAnnualStatus,employeeAnnualRequest,employeeAnnualDate,employeeAnnualSelectedDays) VALUES ('','$employeeName','$employeeSurname','$employeeBirthDate','$employeeStartJobDate','$employeePosition','$employeeContractType','$employeeUsername','$employeePassword','$employeeFreeDays','$employeeAnnualStatus','$employeeAnnualRequest','$employeeAnnualDate','$employeeAnnualSelectedDays')";
+        $sql= "INSERT INTO employees(employeeId,employeeName,employeeSurname,employeeBirthDate,employeeStartJobDate,employeePosition,employeeContractType,employeeUsername,employeePassword,employeeFreeDays,employeeAnnualStatus,employeeAnnualRequest,employeeAnnualDateStart,employeeAnnualDateEnd,employeeAnnualSelectedDays) VALUES ('','$employeeName','$employeeSurname','$employeeBirthDate','$employeeStartJobDate','$employeePosition','$employeeContractType','$employeeUsername','$employeePassword','$employeeFreeDays','$employeeAnnualStatus','$employeeAnnualRequest','$employeeAnnualDateStart','$employeeAnnualDateEnd','$employeeAnnualSelectedDays')";
         $result= $conn->query($sql);
         echo "<h1>You have successfully added a new Employee!</h1>";
     }

@@ -1,8 +1,12 @@
 <?php
+        session_start();
+        $_SESSION['adminUsername']=$_POST['ausername'];
+        $_SESSION['adminPassword']=$_POST['apassword'];
+        
         $adminUsername=$_POST['ausername'];
         $adminPassword=$_POST['apassword'];
 
-        if(empty($adminUsername) || empty($adminPassword))
+        if(empty($_SESSION['adminUsername']) || empty($_SESSION['adminPassword']))
             echo "<h1>You have to insert both username and password!</h1>";
            
         $conn=new mysqli("localhost","root","","companyannualleave");
@@ -40,7 +44,7 @@
 <body>
         <br><br><br>
         <?php
-        echo "<a href='adminPanelControl.php'>CONTROL PANEL</a><br>";
+        //echo "<a href='adminPanelControl.php'>CONTROL PANEL</a><br>";
         echo "<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>";
         echo "<a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>";
         echo "<a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>";

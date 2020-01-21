@@ -140,19 +140,22 @@ session_start();
         foreach($rows as $row)
         {
             $ePosition=$row['employeePosition'];
-            $eAnnualStartDate=$row['employeeAnnualDateStart'];
-            $eAnnualEndDate=$row['employeeAnnualDateEnd'];
+            $eAnnualStartDate=strtotime(date_create($row['employeeAnnualDateStart']));
+            $eAnnualEndDate=strtotime(date_create($row['employeeAnnualDateEnd']));
         }
         
         // This part will get all employees who works on same position and have got aprroved Annual Leave.
         // If there is that case, choose start and end date for employee will be deleted.
 
         $conn=new mysqli("localhost","root","","companyannualleave");
-        $sql= "SELECT * FROM employees WHERE employeePosition = '$ePosition'AND employeeAnnualStatus = 'true';
+        $sql= "SELECT * FROM employees WHERE employeePosition = '$ePosition'AND employeeAnnualStatus = 'true'";
         $result= $conn->query($sql);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
         foreach($rows as $row)
-            if($eAnnualStartDate <= $row['employeeAnnualDateEnd'] && $eAnnualEndDate >= $row['employeeAnnualDateStart'])
+        {
+            $currentDateEnd= strtotime(date_create($row['employeeAnnualDateEnd']));
+            $currentDateStart= strtotime(date_create($row['employeeAnnualDateStart']));
+            if($eAnnualStartDate <= $currentDateEnd  && $eAnnualEndDate >= $currentDateStart)
             {
                 echo "You have to choose another date! Your coleague is already using it with this date span!<br><br>";
 
@@ -160,7 +163,7 @@ session_start();
 		        $sql = "UPDATE employees SET employeeAnnualRequest = 'false', employeeAnnualDateStart = 'NULL', employeeAnnualDateEnd = 'NULL', employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
                 $result = $conn->query($sql);
             }
-
+        }
     header("location:userPanelLogin.php");
 
     }

@@ -20,12 +20,6 @@ session_start();
         echo $employeeId." ";
         $_SESSION['employeeId']=$employeeId;
         echo $_SESSION['employeeId']."<br>";
-            
-    
-
-
-
-
 
         $conn=new mysqli("localhost","root","","companyannualleave");
         $sql= "SELECT * FROM employees WHERE employeeUsername='$userUsername' AND employeePassword='$userPassword'";
@@ -130,11 +124,44 @@ session_start();
         //$employeeId=$_SESSION['employeeId'];
         echo "OVO JE ID ".$employeeId."<br>";
 
+        //This part will set start and end date for employee.
+
         $conn = new mysqli("localhost", "root", "", "companyannualleave");
 		$sql = "UPDATE employees SET employeeAnnualRequest = 'true', employeeAnnualDateStart = '$employeeAnnualDate', employeeAnnualDateEnd = '$endingDate', employeeAnnualSelectedDays = '$employeeAnnualSelectedDays' WHERE employeeId = '$employeeId'";
-		$result = $conn->query($sql);
-        echo "Uspesno UPDEJT!";
-        header("location:userPanelLogin.php");
+        $result = $conn->query($sql);
+        
+
+        // This part will take position of the selected employee and his/hers date for requested Annual Leave
+
+        $conn=new mysqli("localhost","root","","companyannualleave");
+        $sql= "SELECT * FROM employees WHERE employeeId='$employeeId'";
+        $result= $conn->query($sql);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        foreach($rows as $row)
+        {
+            $ePosition=$row['employeePosition'];
+            $eAnnualStartDate=$row['employeeAnnualDateStart'];
+            $eAnnualEndDate=$row['employeeAnnualDateEnd'];
+        }
+        
+        // This part will get all employees who works on same position and have got aprroved Annual Leave.
+        // If there is that case, choose start and end date for employee will be deleted.
+
+        $conn=new mysqli("localhost","root","","companyannualleave");
+        $sql= "SELECT * FROM employees WHERE employeePosition = '$ePosition'AND employeeAnnualStatus = 'true';
+        $result= $conn->query($sql);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        foreach($rows as $row)
+            if($eAnnualStartDate <= $row['employeeAnnualDateEnd'] && $eAnnualEndDate >= $row['employeeAnnualDateStart'])
+            {
+                echo "You have to choose another date! Your coleague is already using it with this date span!<br><br>";
+
+                $conn = new mysqli("localhost", "root", "", "companyannualleave");
+		        $sql = "UPDATE employees SET employeeAnnualRequest = 'false', employeeAnnualDateStart = 'NULL', employeeAnnualDateEnd = 'NULL', employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
+                $result = $conn->query($sql);
+            }
+
+    header("location:userPanelLogin.php");
 
     }
 ?>

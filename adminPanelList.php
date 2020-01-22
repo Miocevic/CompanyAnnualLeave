@@ -9,7 +9,9 @@
 <body>
     <a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>
     <a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>
-    <a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>
+    <a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br> 
+    <a href='index.php'>LOGOUT</a><br><br>
+    
     <?php
 
         $conn = new mysqli("localhost", "root", "", "companyannualleave");

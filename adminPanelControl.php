@@ -44,6 +44,8 @@
     <a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>
     <a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>
     <a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>
+    <a href='index.php'>LOGOUT</a><br><br>
+    
   <h2>APPROVE OF THE EMPLOYEES ANNUAL LEAVE</h2>
   <p>Select choise for every employee listed.</p>            
   <table class="table">
@@ -86,7 +88,7 @@
 
       success:function(){
         alert("You have Accepted this request.");
-        header('Location: index.php');}
+        location.reload();}
     })
   }
 
@@ -99,7 +101,7 @@
 
       success:function(){
         alert("You have Rejected this request."); 
-        header('Location: .');          }
+        location.reload();        }
     })
   }
 

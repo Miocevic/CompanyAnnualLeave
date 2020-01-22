@@ -54,7 +54,7 @@ session_start();
 </head>
 <body>
 
-    <form action=userPanelSchedule.php method=post>
+    <form action=userPanelSelectedAnnual.php method=post>
         Select when You want to start Annual Leave: 
         <br><input type="date" min="<?php echo date("Y") ?>-01-01" max="<?php echo date("Y") ?>-12-31" name="edateSchedule"><br>
 
@@ -89,82 +89,3 @@ session_start();
     </form>
 </body>
 </html>
-
-<?php
-    if(isset($_POST['userSelectedAnnual']))
-    {   
-
-        $employeeAnnualDate=$_POST['edateSchedule'];
-        $employeeAnnualSelectedDays=$_POST['daysChoose'];
-
-        echo $employeeAnnualDate;
-        
-        $freeWorkingDays=$employeeAnnualSelectedDays;
-        $startingDate=date_create($employeeAnnualDate);
-        $endingDate=$startingDate;
-
-        for($i=0;$i<$freeWorkingDays-1;)
-        {
-            $dayNumber=(int)(date_format($endingDate,"N")); 
-            if($dayNumber==5 || $dayNumber==6)
-                date_add($endingDate,date_interval_create_from_date_string("1 day"));
-            else
-            {        
-                date_add($endingDate,date_interval_create_from_date_string("1 day"));
-                $i++;
-            }
-        }   
-        echo date_format($endingDate,"Y-m-d");
-
-        $endingDate = $endingDate->format('Y-m-d');
-
-        $_SESSION['employeeAnnualDateStart']=$employeeAnnualDate;
-        $_SESSION['employeeAnnualSelectedDays']=$employeeAnnualSelectedDays;
-        $_SESSION['employeeAnnualDateEnd']=$endingDate;
-        //$employeeId=$_SESSION['employeeId'];
-        echo "OVO JE ID ".$employeeId."<br>";
-
-        //This part will set start and end date for employee.
-
-        $conn = new mysqli("localhost", "root", "", "companyannualleave");
-		$sql = "UPDATE employees SET employeeAnnualRequest = true, employeeAnnualDateStart = '$employeeAnnualDate', employeeAnnualDateEnd = '$endingDate', employeeAnnualSelectedDays = '$employeeAnnualSelectedDays' WHERE employeeId = '$employeeId'";
-        $result = $conn->query($sql);
-        
-
-        // This part will take position of the selected employee and his/hers date for requested Annual Leave
-
-        $conn=new mysqli("localhost","root","","companyannualleave");
-        $sql= "SELECT * FROM employees WHERE employeeId='$employeeId'";
-        $result= $conn->query($sql);
-        $rows = $result->fetch_all(MYSQLI_ASSOC);
-        foreach($rows as $row)
-        {
-            $ePosition=$row['employeePosition'];
-            $eAnnualStartDate=strtotime(date_create($row['employeeAnnualDateStart']));
-            $eAnnualEndDate=strtotime(date_create($row['employeeAnnualDateEnd']));
-        }
-        
-        // This part will get all employees who works on same position and have got aprroved Annual Leave.
-        // If there is that case, choose start and end date for employee will be deleted.
-
-        $conn=new mysqli("localhost","root","","companyannualleave");
-        $sql= "SELECT * FROM employees WHERE employeePosition = '$ePosition'AND employeeAnnualStatus = 'true'";
-        $result= $conn->query($sql);
-        $rows = $result->fetch_all(MYSQLI_ASSOC);
-        foreach($rows as $row)
-        {
-            $currentDateEnd= strtotime(date_create($row['employeeAnnualDateEnd']));
-            $currentDateStart= strtotime(date_create($row['employeeAnnualDateStart']));
-            if($eAnnualStartDate <= $currentDateEnd  && $eAnnualEndDate >= $currentDateStart)
-            {
-                echo "You have to choose another date! Your coleague is already using his Annual Leave with this date span!<br><br>";
-
-                $conn = new mysqli("localhost", "root", "", "companyannualleave");
-		        $sql = "UPDATE employees SET employeeAnnualRequest = false, employeeAnnualDateStart = NULL, employeeAnnualDateEnd = NULL, employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
-                $result = $conn->query($sql);
-            }
-        }
-    header("location:userPanelLogin.php");
-
-    }
-?>

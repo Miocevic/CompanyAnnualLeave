@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+<!--
+    ADMIN
+    username: bili
+    password: 12345
+
+    USER
+    username: asd
+    password: asd
+
+-->
+
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

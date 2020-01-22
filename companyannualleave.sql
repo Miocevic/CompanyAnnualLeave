@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2020 at 04:47 AM
+-- Generation Time: Jan 22, 2020 at 08:44 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -73,16 +73,16 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employeeId`, `employeeName`, `employeeSurname`, `employeeBirthDate`, `employeeStartJobDate`, `employeePosition`, `employeeContractType`, `employeeUsername`, `employeePassword`, `employeeFreeDays`, `employeeAnnualStatus`, `employeeAnnualRequest`, `employeeAnnualDateStart`, `employeeAnnualDateEnd`, `employeeAnnualSelectedDays`) VALUES
-(1, 'Anna', 'Frank', '0000-00-00', '2019-03-03', 'Front End Developer', 'Full Time', '', '', 0, 0, 0, NULL, '0000-00-00', 0),
-(3, 'James', 'Deen', '0000-00-00', '2018-03-03', 'Back End Developer', 'Part Time', '', '', 0, 1, 0, NULL, '0000-00-00', 0),
-(4, 'Antonio', 'Michael', '0000-00-00', '2019-07-05', 'Full Stack Developer', 'Full Time', '', '', 0, 1, 0, '0000-00-00', '2020-01-31', 9),
-(27, 'Nicholas', 'Johnes', '1233-12-01', '1231-03-12', 'Front End Developer', 'Full Time', 'nich12', '123456', 0, 0, 0, NULL, '0000-00-00', 0),
-(29, 'Maria', 'Stones', '1987-05-24', '2016-07-26', 'Manager', 'Full Time', 'maria87', 'marry123', 0, 0, 1, NULL, '0000-00-00', 0),
-(30, 'Angela', 'Craft', '1988-08-15', '2018-08-01', 'Economist', 'Full Time', 'angela88', 'angelgirl', 0, 0, 0, NULL, '0000-00-00', 0),
-(31, 'Hanna', 'Montana', '2000-05-23', '2019-06-24', 'Manager', 'Part Time', 'Hanna00', 'hannayoung', 0, 0, 0, NULL, '0000-00-00', 0),
-(53, 'James', 'Cameroon', '1978-04-23', '2014-04-15', 'Full Stack Developer', 'Full Time', 'james78', 'james123', 20, 0, 1, NULL, '0000-00-00', 0),
-(54, 'Nikita', 'Geller', '1992-09-07', '2017-03-08', 'Economist', 'Full Time', 'nikita92', 'nicky23', 20, 0, 0, NULL, '0000-00-00', 0),
-(63, 'Proba', 'Zasad', '1991-03-21', '2015-05-20', 'Front End Developer', 'Full Time', 'asd', 'asd', 20, 0, 0, '2020-03-23', '2020-03-27', 5);
+(1, 'Anna', 'Frank', '0000-00-00', '2019-03-03', 'Front End Developer', 'Full Time', '', '', 0, 1, 0, '2020-01-19', '2020-01-28', 0),
+(4, 'Antonio', 'Michael', '0000-00-00', '2019-07-05', 'Full Stack Developer', 'Full Time', '', '', 25, 0, 0, NULL, '0000-00-00', 0),
+(27, 'Nicholas', 'Johnes', '1233-12-01', '1231-03-12', 'Front End Developer', 'Full Time', 'nich12', '123456', 0, 1, 0, NULL, '0000-00-00', 0),
+(29, 'Maria', 'Stones', '1987-05-24', '2016-07-26', 'Manager', 'Full Time', 'maria87', 'marry123', 35, 0, 1, '2020-01-01', '2020-01-16', 12),
+(30, 'Angela', 'Craft', '1988-08-15', '2018-08-01', 'Economist', 'Full Time', 'angela88', 'angelgirl', 20, 1, 0, NULL, '0000-00-00', 0),
+(31, 'Hanna', 'Montana', '2000-05-23', '2019-06-24', 'Manager', 'Part Time', 'Hanna00', 'hannayoung', 34, 1, 0, NULL, '0000-00-00', 0),
+(53, 'James', 'Cameroon', '1978-04-23', '2014-04-15', 'Full Stack Developer', 'Full Time', 'james78', 'james123', 20, 0, 0, NULL, '0000-00-00', 0),
+(54, 'Nikita', 'Geller', '1992-09-07', '2017-03-08', 'Economist', 'Full Time', 'nikita92', 'nicky23', 20, 1, 0, NULL, '0000-00-00', 0),
+(63, 'Proba', 'Zasad', '1991-03-21', '2015-05-20', 'Front End Developer', 'Full Time', 'asd', 'asd', 15, 0, 1, '2020-02-26', '2020-03-03', 5),
+(64, 'asdasdasd', 'sqasasd', '2000-01-01', '2019-12-31', 'Front End Developer', 'Full Time', 'asdasd', 'asdasd', 20, 1, 0, '2020-02-25', '2020-02-29', 0);
 
 --
 -- Indexes for dumped tables
@@ -114,7 +114,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

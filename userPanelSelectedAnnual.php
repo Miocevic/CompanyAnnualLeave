@@ -73,7 +73,7 @@
 		        $sql = "UPDATE employees SET employeeAnnualRequest = false, employeeAnnualDateStart = NULL, employeeAnnualDateEnd = NULL, employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
                 $result = $conn->query($sql); 
             }
-        }
+        }   
 
     header("location:userPanelLogin.php");
 

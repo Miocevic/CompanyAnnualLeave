@@ -5,11 +5,11 @@
 
     USER
     username: asd
-    password: asd
+    password:asd
 
 -->
 
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

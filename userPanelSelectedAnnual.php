@@ -54,11 +54,11 @@
         // If there is that case, choosen start and end date for employee Annual Leave will be deleted.
 
 
-
         $conn=new mysqli("localhost","root","","companyannualleave");
-        $sql= "SELECT * FROM employees WHERE employeePosition = '$ePosition'AND employeeAnnualStatus = 'true' AND employeeId <> '$employeeId'";
+        $sql= "SELECT * FROM employees WHERE employeePosition = '$ePosition'AND employeeAnnualStatus = true AND employeeId != '$employeeId'";
         $result= $conn->query($sql);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $i=0;
         foreach($rows as $row)
         {
             $currentDateEnd= strtotime($row['employeeAnnualDateEnd']);
@@ -67,15 +67,18 @@
             
             if(($eAnnualStartDate <= $currentDateEnd) && ($eAnnualEndDate >= $currentDateStart))
             {
-                echo "You have to choose another date! Your coleague is already using his Annual Leave with this date span!<br><br>";
+                $i=1;
+                echo "<h2>You have to choose another date! Your coleague is already using his Annual Leave with this date span!</h2><br><br>";
 
                 $conn = new mysqli("localhost", "root", "", "companyannualleave");
 		        $sql = "UPDATE employees SET employeeAnnualRequest = false, employeeAnnualDateStart = NULL, employeeAnnualDateEnd = NULL, employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
                 $result = $conn->query($sql); 
             }
-        }   
-
-    header("location:userPanelLogin.php");
+        }
+        if($i==0){
+            echo "<h2>You have successfuly choosed your Annual Leave for this year. Please wait for our Administartor to check the dates.</h2><br><br>";   
+        }
+    //header("location:userPanelLogin.php");
 
     }
 ?>
@@ -88,7 +91,7 @@
     <title>YOU CANNOT DO THAT</title>
 </head>
 <body>
-    <a href='userPanelSchedule.php'>TRY AGAIN</a><br>
+
     <a href='index.php'>LOGOUT</a><br>
     
 </body>

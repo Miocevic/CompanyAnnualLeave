@@ -17,10 +17,8 @@ session_start();
             $tryId = $firstrow['employeeId'];
 
         $employeeId=$tryId;
-        echo $employeeId." ";
         $_SESSION['employeeId']=$employeeId;
-        echo $_SESSION['employeeId']."<br>";
-
+        
         $conn=new mysqli("localhost","root","","companyannualleave");
         $sql= "SELECT * FROM employees WHERE employeeUsername='$userUsername' AND employeePassword='$userPassword'";
         $result= $conn->query($sql);

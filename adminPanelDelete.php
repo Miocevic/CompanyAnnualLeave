@@ -13,6 +13,9 @@ if(isset($_POST['remove'])){
 	<title>Remove Employee from Database</title>
 </head>
 <body>
+	<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>
+    <a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>
+    <a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>
 	<form action="adminPanelDelete.php" method="post">
 		
 		<?php
@@ -21,10 +24,7 @@ if(isset($_POST['remove'])){
 			$result = $conn->query($sql);
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-			//echo "<a href='adminPanelControl.php'>CONTROL PANEL</a><br>";
-			echo "<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>";
-			echo "<a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>";
-			echo "<a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>";
+
 
             echo "Select Employee from a list: <br>";
 			echo "<select name='employees'>";

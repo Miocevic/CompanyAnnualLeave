@@ -127,7 +127,7 @@ session_start();
         //This part will set start and end date for employee.
 
         $conn = new mysqli("localhost", "root", "", "companyannualleave");
-		$sql = "UPDATE employees SET employeeAnnualRequest = 'true', employeeAnnualDateStart = '$employeeAnnualDate', employeeAnnualDateEnd = '$endingDate', employeeAnnualSelectedDays = '$employeeAnnualSelectedDays' WHERE employeeId = '$employeeId'";
+		$sql = "UPDATE employees SET employeeAnnualRequest = true, employeeAnnualDateStart = '$employeeAnnualDate', employeeAnnualDateEnd = '$endingDate', employeeAnnualSelectedDays = '$employeeAnnualSelectedDays' WHERE employeeId = '$employeeId'";
         $result = $conn->query($sql);
         
 
@@ -157,10 +157,10 @@ session_start();
             $currentDateStart= strtotime(date_create($row['employeeAnnualDateStart']));
             if($eAnnualStartDate <= $currentDateEnd  && $eAnnualEndDate >= $currentDateStart)
             {
-                echo "You have to choose another date! Your coleague is already using it with this date span!<br><br>";
+                echo "You have to choose another date! Your coleague is already using his Annual Leave with this date span!<br><br>";
 
                 $conn = new mysqli("localhost", "root", "", "companyannualleave");
-		        $sql = "UPDATE employees SET employeeAnnualRequest = 'false', employeeAnnualDateStart = 'NULL', employeeAnnualDateEnd = 'NULL', employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
+		        $sql = "UPDATE employees SET employeeAnnualRequest = false, employeeAnnualDateStart = NULL, employeeAnnualDateEnd = NULL, employeeAnnualSelectedDays = 0 WHERE employeeId = '$employeeId'";
                 $result = $conn->query($sql);
             }
         }

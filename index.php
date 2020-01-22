@@ -23,6 +23,7 @@
 </html>
 
 <?php
+        //This will remove any unused free day from last year if month July started.
         $currentYear=date("Y");
         $currentMonth=date("n");    
     

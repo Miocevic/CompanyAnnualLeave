@@ -7,17 +7,15 @@
     <title>Employees List</title>
 </head>
 <body>
+    <a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>
+    <a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>
+    <a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>
     <?php
 
         $conn = new mysqli("localhost", "root", "", "companyannualleave");
         $sql = "SELECT * FROM  employees ORDER BY employeeName,employeeSurname ASC";
         $result = $conn->query($sql);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
-    
-        //echo "<a href='adminPanelControl.php'>CONTROL PANEL</a><br>";
-        echo "<a href='adminPanelAdd.php'>ADD NEW EMPLOYEE</a><br>";
-        echo "<a href='adminPanelList.php'>LIST ALL EMPLOYEES</a><br>";
-        echo "<a href='adminPanelDelete.php'>REMOVE EMPLOYEE</a><br><br>";
         
         echo "<br>";
         foreach($rows as $row){
